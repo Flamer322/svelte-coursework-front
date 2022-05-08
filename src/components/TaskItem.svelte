@@ -2,26 +2,46 @@
   import { tasks } from "../store";
   export let task = {};
 
-  let isChecked;
+  let isChecked = task.done;
 
-  function taskDone() {
-    console.log(isChecked);
+  function changeTask(id){
+    let type = 'change'
+    fetch(`http://localhost:5000/tasks/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({type}),
+    })
+  }
 
-    let updatedTasks = $tasks.map((currentTask) => {
-      if (currentTask.id === task.id) {
-        currentTask.completed = isChecked;
-        return currentTask;
-      }
-      return currentTask;
+  function taskChange() {
+    let taskIndex = $tasks.findIndex((currentTask => currentTask.id === task.id));
+    $tasks[taskIndex].done = !$tasks[taskIndex].done
+    changeTask(task.id);
+  }
+
+  function deleteTask(id){
+    let type = 'delete'
+    fetch(`http://localhost:5000/tasks/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({type}),
+    })
+  }
+
+  function taskDelete() {
+    $tasks = $tasks.filter(function( currentTask ) {
+      return currentTask.id !== task.id;
     });
-
-    tasks.set(updatedTasks);
-    console.log($tasks);
+    deleteTask(task.id);
   }
 </script>
 
 <style>
-  .completed {
+  .done {
     color: red;
     text-decoration: line-through;
   }
@@ -29,14 +49,18 @@
 
 <main>
   <li class="list-group-item">
-    <div style="margin-left: 10px">
-      <input
-        type="checkbox"
-        class="form-check-input"
-        id="exampleCheck1"
-        bind:checked={isChecked}
-        on:change={(e) => taskDone(e)} />
-      <span class:completed={task.completed}>{task.description}</span>
+    <div style="margin-left: 10px; display: flex">
+      <div style="width: 100%">
+        <input
+                type="checkbox"
+                class="form-check-input"
+                bind:checked={isChecked}
+                on:change={(e) => taskChange(e)} />
+        <span class:done={task.done}>{task.task}</span>
+      </div>
+      <div style="width: 20px">
+        <img src="delete.png" alt="Удалить" width="20px" height="20px" on:click={(e) => taskDelete(e)}/>
+      </div>
     </div>
   </li>
 </main>

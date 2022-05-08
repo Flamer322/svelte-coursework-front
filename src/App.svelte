@@ -8,6 +8,9 @@
 	let newTask;
 
 	onMount(async () => {
+		let tasks_json = await getTasks();
+		tasks.set(tasks_json)
+
 		auth0Client = await auth.createClient();
 
 		isAuthenticated.set(await auth0Client.isAuthenticated());
@@ -22,41 +25,42 @@
 		auth.logout(auth0Client);
 	}
 
-	function addItem() {
-		let newTaskObject = {
-			id: genRandom(),
-			description: newTask,
-			completed: false,
-			user: $user.email
-		};
+	async function getTasks(){
+		let res = await fetch(`http://localhost:5000/tasks`, {
+			method: 'GET',
+		})
+		let json = await res.json()
+		json.sort((a, b) => (a.id > b.id) ? 1 : -1)
+		return json;
+	}
 
-		let sub = $user.sub;
-
-		fetch(`http://localhost:5000/tasks`, {
-			mode: 'no-cors',
+	async function addTask(user_sub){
+		let res = await fetch(`http://localhost:5000/tasks`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({sub, newTask}),
+			body: JSON.stringify({user_sub, newTask}),
 		})
+		let id = await res.text();
+		return parseInt(id);
+	}
 
-		console.log(newTaskObject);
+	async function addItem() {
+		let id = await addTask($user.sub);
+
+		let newTaskObject = {
+			id: id,
+			user_sub: $user.sub,
+			task: newTask,
+			done: false
+		};
 
 		let updatedTasks = [...$tasks, newTaskObject];
 
 		tasks.set(updatedTasks);
 
 		newTask = "";
-	}
-
-	function genRandom(length = 7) {
-		let chars =
-				"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		let result = "";
-		for (let i = length; i > 0; --i)
-			result += chars[Math.round(Math.random() * (chars.length - 1))];
-		return result;
 	}
 </script>
 
