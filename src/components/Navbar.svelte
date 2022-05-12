@@ -11,7 +11,7 @@
 	<div class="collapse navbar-collapse" id="navbarText">
 		<div class="navbar-nav mr-auto user-details">
 			{#if $user != null}
-					<span class="text-white" style="font-size: 18px">&nbsp;&nbsp;{$user.email}</span>
+				<span class="text-white" style="font-size: 18px; margin-top: 2px">&nbsp;&nbsp;{$user.email}</span>
 			{:else}
 				<span>&nbsp;</span>
 			{/if}

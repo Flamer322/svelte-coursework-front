@@ -2,7 +2,6 @@
 	import { user_tasks } from "../store";
 	import SortButton from "./SortButton.svelte";
 	import TaskItem from "./TaskItem.svelte";
-	import Instruction from "./Instruction.svelte";
 
 	let sortOrder = "id";
 	let sortDir = 1;
@@ -31,7 +30,7 @@
 	]
 
 	function setOrder(order) {
-		if (sortOrder == order){
+		if (sortOrder === order){
 			sortDir = -sortDir;
 		} else {
 			sortOrder = order;
@@ -40,8 +39,8 @@
 	}
 </script>
 
-{#if $user_tasks.length == 0}
-	<div class="col" style="margin-top: 30px">
+{#if $user_tasks.length === 0}
+	<div class="col" style="margin-top: 30px; padding-left: 20%">
 		<h1 class="display-4" style="text-align: center">Список пуст</h1>
 		<p class="lead" style="text-align: center">Начните, добавив задание</p>
 	</div>

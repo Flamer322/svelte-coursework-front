@@ -2,7 +2,7 @@
 	import { tasks, user, users } from "./store";
 	import { onMount } from "svelte";
 	import { getTasks } from "./tasks";
-	import {getUsers} from "./users";
+	import { getUsers } from "./users";
 	import Instruction from "./components/Instruction.svelte";
 	import Navbar from "./components/Navbar.svelte";
 	import NewTask from "./components/NewTask.svelte";
@@ -26,7 +26,7 @@
 
 <Navbar/>
 
-<div className="container" id="main-application">
+<div id="main-application">
 	{#if $user != null}
 		<div class="row">
 			<TaskList/>
