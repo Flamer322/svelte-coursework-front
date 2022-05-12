@@ -22,22 +22,20 @@ async function addTask(user_id, task, priority){
 function changeTask(id){
     let type = 'change'
     fetch(`http://localhost:5000/tasks/${id}`, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({type}),
+        }
     })
 }
 
 function deleteTask(id){
     let type = 'delete'
     fetch(`http://localhost:5000/tasks/${id}`, {
-        method: 'POST',
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({type}),
+        }
     })
 }
 
