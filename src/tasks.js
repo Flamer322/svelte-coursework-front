@@ -7,13 +7,13 @@ async function getTasks(){
     return json;
 }
 
-async function addTask(user_sub, task, priority){
+async function addTask(user_id, task, priority){
     let res = await fetch(`http://localhost:5000/tasks`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({user_sub, task, priority}),
+        body: JSON.stringify({user_id, task, priority}),
     })
     let id = await res.text();
     return parseInt(id);

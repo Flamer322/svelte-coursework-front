@@ -1,6 +1,6 @@
 <script>
   import { tasks } from "../store";
-  import { changeTask, deleteTask } from "../userActions";
+  import { changeTask, deleteTask } from "../tasks";
 
   export let task = {};
 
@@ -32,7 +32,7 @@
   }
 </style>
 
-<li class:done={task.done} class="list-group-item">
+<li class:done={task.done} class="list-group-item" style="width: 50%">
   <div style="display: flex; flex-direction: row; align-content: flex-start">
     <div style="flex-grow: 1; flex-shrink: 1">
       <input

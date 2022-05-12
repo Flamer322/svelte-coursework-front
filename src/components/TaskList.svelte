@@ -2,6 +2,7 @@
 	import { user_tasks } from "../store";
 	import SortButton from "./SortButton.svelte";
 	import TaskItem from "./TaskItem.svelte";
+	import Instruction from "./Instruction.svelte";
 
 	let sortOrder = "id";
 	let sortDir = 1;
@@ -39,15 +40,24 @@
 	}
 </script>
 
-<div class="col">
-	<div class="row" style="margin-left: 40px; margin-bottom: 20px">
-		{#each sortOptions as sort}
-			<SortButton sort="{sort}" sortOrder="{sortOrder}" sortDir="{sortDir}" setOrder="{setOrder}" />
-		{/each}
+{#if $user_tasks.length == 0}
+	<div class="col" style="margin-top: 30px">
+		<h1 class="display-4" style="text-align: center">Список пуст</h1>
+		<p class="lead" style="text-align: center">Начните, добавив задание</p>
 	</div>
-	<ul>
-		{#each sortedTasks as item}
-			<TaskItem task="{item}" />
-		{/each}
-	</ul>
-</div>
+{:else}
+	<div class="col" style="padding-left: 20%">
+		<div class="row" style="margin-left: 40px; margin-bottom: 20px">
+			{#each sortOptions as sort}
+				<SortButton sort="{sort}" sortOrder="{sortOrder}" sortDir="{sortDir}" setOrder="{setOrder}" />
+			{/each}
+		</div>
+		<div class="row">
+			<ul>
+				{#each sortedTasks as item}
+					<TaskItem task="{item}" />
+				{/each}
+			</ul>
+		</div>
+	</div>
+{/if}

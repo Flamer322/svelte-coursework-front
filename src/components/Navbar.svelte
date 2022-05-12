@@ -1,37 +1,27 @@
 <script>
-    import { isAuthenticated, user } from "../store";
-    import auth from "../authService";
-    export let auth0Client;
+	import { user } from "../store";
 
-    function login() {
-        auth.loginWithPopup(auth0Client);
-    }
-
-    function logout() {
-        auth.logout(auth0Client);
-    }
+	function logout() {
+		$user = null;
+	}
 </script>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding-left: 20px; padding-right: 20px">
-    <a class="navbar-brand" href="/#">Список дел</a>
-    <div class="collapse navbar-collapse" id="navbarText">
-        <div class="navbar-nav mr-auto user-details">
-            {#if $isAuthenticated}
-                <span class="text-white">&nbsp;&nbsp;{$user.name} ({$user.email})</span>
-            {:else}
-                <span>&nbsp;</span>
-            {/if}
-        </div>
-    </div>
-    <span class="navbar-text">
+	<a class="navbar-brand" href="/#">Список дел</a>
+	<div class="collapse navbar-collapse" id="navbarText">
+		<div class="navbar-nav mr-auto user-details">
+			{#if $user != null}
+					<span class="text-white" style="font-size: 18px">&nbsp;&nbsp;{$user.email}</span>
+			{:else}
+				<span>&nbsp;</span>
+			{/if}
+		</div>
+	</div>
+	<span class="navbar-text">
 		<ul class="navbar-nav float-right">
-			{#if $isAuthenticated}
+			{#if $user != null}
 				<li class="nav-item">
 				<a class="nav-link" href="/#" on:click="{logout}">Выйти</a>
-				</li>
-			{:else}
-				<li class="nav-item">
-				<a class="nav-link" href="/#" on:click="{login}">Войти</a>
 				</li>
 			{/if}
 		</ul>

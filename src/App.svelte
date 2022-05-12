@@ -1,41 +1,41 @@
 <script>
-	import { isAuthenticated, user, tasks } from "./store";
+	import { tasks, user, users } from "./store";
 	import { onMount } from "svelte";
-	import { getTasks } from "./userActions";
-	import auth from "./authService";
+	import { getTasks } from "./tasks";
+	import {getUsers} from "./users";
 	import Instruction from "./components/Instruction.svelte";
 	import Navbar from "./components/Navbar.svelte";
 	import NewTask from "./components/NewTask.svelte";
 	import TaskList from "./components/TaskList.svelte";
-
-	let auth0Client;
+	import UserLogin from "./components/UserLogin.svelte";
 
 	onMount(async () => {
 		let tasks_json = await getTasks();
-		tasks.set(tasks_json)
+		tasks.set(tasks_json);
 
-		auth0Client = await auth.createClient();
-
-		isAuthenticated.set(await auth0Client.isAuthenticated());
-		user.set(await auth0Client.getUser());
+		let users_json = await getUsers();
+		users.set(users_json);
 	});
 </script>
 
 <style>
 	#main-application {
-		margin-top: 50px;
+		margin: 50px;
 	}
 </style>
 
-<Navbar auth0Client="{auth0Client}"/>
+<Navbar/>
 
-{#if !$isAuthenticated}
-	<Instruction auth0Client="{auth0Client}"/>
-{:else}
-	<div class="container" id="main-application">
+<div className="container" id="main-application">
+	{#if $user != null}
 		<div class="row">
-			<TaskList />
-			<NewTask />
+			<TaskList/>
+			<NewTask/>
 		</div>
-	</div>
-{/if}
+	{:else}
+		<div class="row">
+			<Instruction />
+			<UserLogin />
+		</div>
+	{/if}
+</div>
