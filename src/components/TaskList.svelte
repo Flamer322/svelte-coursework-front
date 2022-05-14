@@ -39,14 +39,34 @@
 	}
 </script>
 
+<style>
+	#listBlank {
+		margin-top: 30px;
+		padding-left: 20%
+	}
+
+	#listBlank h1, p {
+		text-align: center
+	}
+
+	#list {
+		padding-left: 20%
+	}
+
+	#list:first-child {
+		margin-left: 40px;
+		margin-bottom: 20px
+	}
+</style>
+
 {#if $user_tasks.length === 0}
-	<div class="col" style="margin-top: 30px; padding-left: 20%">
-		<h1 class="display-4" style="text-align: center">Список пуст</h1>
-		<p class="lead" style="text-align: center">Начните, добавив задание</p>
+	<div class="col" id="listBlank">
+		<h1 class="display-4">Список пуст</h1>
+		<p class="lead">Начните, добавив задание</p>
 	</div>
 {:else}
-	<div class="col" style="padding-left: 20%">
-		<div class="row" style="margin-left: 40px; margin-bottom: 20px">
+	<div class="col" id="list">
+		<div class="row">
 			{#each sortOptions as sort}
 				<SortButton sort="{sort}" sortOrder="{sortOrder}" sortDir="{sortDir}" setOrder="{setOrder}" />
 			{/each}
