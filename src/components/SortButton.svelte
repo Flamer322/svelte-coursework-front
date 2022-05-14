@@ -13,7 +13,7 @@
 
 <span on:click="{(e) => setOrder(sort.slug)}" id="sortButton">
       {sort.name}
-  {#if sortOrder == sort.slug && sortDir == 1}
+  {#if sortOrder === sort.slug && sortDir === 1}
       &#9650;
   {:else}
       &#9660;

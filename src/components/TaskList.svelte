@@ -53,7 +53,7 @@
 		padding-left: 20%
 	}
 
-	#list:first-child {
+	#list > div:first-child {
 		margin-left: 40px;
 		margin-bottom: 20px
 	}

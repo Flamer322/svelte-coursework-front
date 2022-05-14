@@ -20,7 +20,6 @@ async function addTask(user_id, task, priority){
 }
 
 function changeTask(id){
-    let type = 'change'
     fetch(`https://to-do-list-coursework.herokuapp.com/tasks/${id}`, {
         method: 'PUT',
         headers: {
@@ -30,7 +29,6 @@ function changeTask(id){
 }
 
 function deleteTask(id){
-    let type = 'delete'
     fetch(`https://to-do-list-coursework.herokuapp.com/tasks/${id}`, {
         method: 'DELETE',
         headers: {
