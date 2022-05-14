@@ -1,5 +1,5 @@
 async function getUsers(){
-    let res = await fetch(`http://localhost:5000/users`, {
+    let res = await fetch(`https://to-do-list-coursework.herokuapp.com/users`, {
         method: 'GET',
     })
     let json = await res.json()
@@ -8,7 +8,7 @@ async function getUsers(){
 }
 
 async function addUser(email, password){
-    let res = await fetch(`http://localhost:5000/users`, {
+    let res = await fetch(`https://to-do-list-coursework.herokuapp.com/users`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

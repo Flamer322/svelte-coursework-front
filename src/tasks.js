@@ -1,5 +1,5 @@
 async function getTasks(){
-    let res = await fetch(`http://localhost:5000/tasks`, {
+    let res = await fetch(`https://to-do-list-coursework.herokuapp.com/tasks`, {
         method: 'GET',
     })
     let json = await res.json()
@@ -8,7 +8,7 @@ async function getTasks(){
 }
 
 async function addTask(user_id, task, priority){
-    let res = await fetch(`http://localhost:5000/tasks`, {
+    let res = await fetch(`https://to-do-list-coursework.herokuapp.com/tasks`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ async function addTask(user_id, task, priority){
 
 function changeTask(id){
     let type = 'change'
-    fetch(`http://localhost:5000/tasks/${id}`, {
+    fetch(`https://to-do-list-coursework.herokuapp.com/tasks/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ function changeTask(id){
 
 function deleteTask(id){
     let type = 'delete'
-    fetch(`http://localhost:5000/tasks/${id}`, {
+    fetch(`https://to-do-list-coursework.herokuapp.com/tasks/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
